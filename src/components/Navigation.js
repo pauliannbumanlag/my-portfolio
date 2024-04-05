@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { useDarkSide } from "../useDarkSide";
+import Switcher from "../Switcher";
+import "../index.css";
 
 const Navigation = () => {
+  const [colorTheme, setTheme] = useDarkSide();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", colorTheme === "dark");
+  }, [colorTheme]);
+
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -20,6 +29,7 @@ const Navigation = () => {
           <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Projects</a>
           <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">Contact</a>
         </div>
+        <Switcher colorMode={colorTheme} toggleColorMode={setTheme} />
       </div>
     </nav>
   );
